@@ -49,4 +49,10 @@
         <item name="android:paddingVertical">8dp</item>
         <item name="android:paddingHorizontal">16dp</item>
     </style>
+
+    <style name="dialog_title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+    </style>
 </resources>

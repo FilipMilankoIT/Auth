@@ -9,8 +9,9 @@
     tools:context=".ui.activities.auth.fragments.register.RegisterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/page_width"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="@dimen/page_horizontal_margin">
 
         <TextView

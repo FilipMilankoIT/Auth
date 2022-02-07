@@ -76,7 +76,10 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
         }
     }
 
-    fun signOut() = repository.signOut()
+    fun signOut() {
+        _waiting.value = true
+        repository.signOut()
+    }
 
     fun deleteUser() {
         viewModelScope.launch {
@@ -93,7 +96,7 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
                 is RepositoryResult.NetworkError -> _error.value = R.string.error_no_network
                 is RepositoryResult.UnknownError -> _error.value = R.string.error_unknown
             }
-            _waiting.value = false
+            _waiting.value = _userDeleted.value
         }
     }
 }

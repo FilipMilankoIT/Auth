@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="page_width">425dp</dimen>
+    <dimen name="profile_page_top_margin">96dp</dimen>
+</resources>

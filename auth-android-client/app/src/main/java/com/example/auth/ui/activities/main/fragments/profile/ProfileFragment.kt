@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import com.example.auth.R
 import com.example.auth.databinding.FragmentProfileBinding
 import com.example.auth.ui.adapters.MySpinnerAdapter
+import com.example.auth.ui.dialogs.DecisionDialogFragment
+import com.example.auth.ui.dialogs.DialogListener
 import com.example.auth.ui.utils.DatePicker
 import com.example.auth.utils.TimeUtils.toFormattedDate
 import com.example.core.model.Gender
@@ -18,7 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener, DialogListener {
 
     private val viewModel: ProfileViewModel by viewModels()
 
@@ -94,7 +96,7 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         binding.deleteButton.setOnClickListener {
-            viewModel.deleteUser()
+            DecisionDialogFragment().show(childFragmentManager)
         }
 
         viewModel.userDeleted.observe(viewLifecycleOwner) {
@@ -138,7 +140,15 @@ class ProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
+    override fun onNothingSelected(parent: AdapterView<*>?) { }
 
+    override fun onDialogPositiveClick(tag: String, bundle: Bundle?) {
+        if (tag == DecisionDialogFragment.TAG) {
+            viewModel.deleteUser()
+        }
     }
+
+    override fun onDialogNegativeClick(tag: String, bundle: Bundle?) { }
+
+    override fun onDialogDismiss(tag: String, bundle: Bundle?) { }
 }

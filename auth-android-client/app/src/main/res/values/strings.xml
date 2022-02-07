@@ -51,4 +51,8 @@
     <string name="profile_updated_success">Profile successfully updated</string>
     <string name="delete_user_success">User is deleted</string>
 
+    <!-- Delete decision dialog -->
+    <string name="delete_dialog_title">Delete Account</string>
+    <string name="delete_dialog_text">Are you sure you want to delete your account?</string>
+    <string name="cancel_label">Cancel</string>
 </resources>
