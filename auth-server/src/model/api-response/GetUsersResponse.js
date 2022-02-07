@@ -17,11 +17,13 @@ class GetUsersResponse extends Response {
      * Creates a 200 response.
      *
      * @param {User[]} users - Array of User objects.
+     * @param {string} lastEvaluatedKey
      * @returns {GetUsersResponse}
      */
-    static okResponse(users) {
+    static okResponse(users, lastEvaluatedKey) {
         const body = {
-            users
+            users,
+            lastEvaluatedKey
         }
         return new GetUsersResponse(Response.StatusCode.OK, body)
     }

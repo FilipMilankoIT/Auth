@@ -72,7 +72,7 @@ class SecretKeyEntity {
         }
 
         console.log('Getting latest keys...')
-        const keys = await dynamoDb.scan(params)
+        const keys = await dynamoDb.scanAll(params)
 
         if (!Array.isArray(keys) || keys.length === 0) {
             return
@@ -91,7 +91,7 @@ class SecretKeyEntity {
         }
 
         console.log('Scanning for old keys...')
-        let keys = await dynamoDb.scan(params)
+        let keys = await dynamoDb.scanAll(params)
         console.log('Scanned keys:\n', JSON.stringify(keys))
 
         if (keys.length < 3) {

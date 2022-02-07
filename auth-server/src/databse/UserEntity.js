@@ -88,9 +88,11 @@ class UserEntity {
      * Gets all users.
      *
      * @param {string} username - Username of the user that should be excluded from the result.
-     * @return {Promise<User[]>} - Returns array of User objects.
+     * @param {number} [limit] - Maximum number of items that should be return.
+     * @param {string} [exclusiveStartKey] - The exclusive start key from which item should the scan start.
+     * @return {Promise<{lastEvaluatedKey: string, items: User[]}>} - Returns array of User objects.
      */
-    getOtherUsers = async (username) => {
+    getOtherUsers = async (username, limit, exclusiveStartKey) => {
         const params = {
             TableName: this.tableName,
             FilterExpression: "username <> :username",
@@ -103,8 +105,23 @@ class UserEntity {
             ProjectionExpression: "username, #role, firstName, lastName, gender, birthday"
         }
 
+        if (limit) {
+            params.Limit = limit
+        }
+
+        if (exclusiveStartKey) {
+            params.ExclusiveStartKey = {
+                username: exclusiveStartKey
+            }
+        }
+
         try {
-            return await dynamoDb.scan(params)
+            const result = await dynamoDb.scan(params)
+            const lastEvaluatedKey = result.LastEvaluatedKey ? result.LastEvaluatedKey.username : undefined
+            return {
+                items: result.Items,
+                lastEvaluatedKey
+            }
         } catch (error) {
             logError(error)
             return []

@@ -51,9 +51,21 @@ function query(params) {
  * Performs scan operation on DynamoDB.
  *
  * @param {DocumentClient.ScanInput} params - Scan parameters.
- * @return {Promise<Array>} - Returns Promise with array of items from the table.
+ * @return {PromiseResult<DocumentClient.ScanOutput, AWSError>} - Returns Promise with array of items from the table.
  */
 function scan(params) {
+    console.log('Performing DynamoDB scan operation:\n', JSON.stringify(params))
+    const docClient = new AWS.DynamoDB.DocumentClient()
+    return docClient.scan(params).promise()
+}
+
+/**
+ * Performs scan operation on DynamoDB for all items.
+ *
+ * @param {DocumentClient.ScanInput} params - Scan parameters.
+ * @return {Promise<Array>} - Returns Promise with array of items from the table.
+ */
+function scanAll(params) {
     console.log('Performing DynamoDB scan operation:\n', JSON.stringify(params))
 
     let scanResult = []
@@ -158,6 +170,7 @@ module.exports = {
     get,
     query,
     scan,
+    scanAll,
     put,
     createUpdateParams,
     update,

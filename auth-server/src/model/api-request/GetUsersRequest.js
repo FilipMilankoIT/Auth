@@ -10,6 +10,10 @@ class GetUsersRequest extends AuthorizedRequest {
     /** @inheritDoc **/
     constructor(event) {
         super(event)
+        if (this.query) {
+            this.limit = this.query.limit
+            this.exclusiveStartKey = this.query.exclusiveStartKey
+        }
         Object.freeze(this)
     }
 

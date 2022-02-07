@@ -35,11 +35,11 @@ module.exports.handler = async (event) => {
 
     try {
         const userEntity = new UserEntity(process.env.userTable)
-        const result = await userEntity.getOtherUsers(request.senderUsername)
+        const result = await userEntity.getOtherUsers(request.senderUsername, request.limit, request.exclusiveStartKey)
 
         console.log('Successfully retrieved all users:\n', JSON.stringify(result))
 
-        return GetUsersResponse.okResponse(result)
+        return GetUsersResponse.okResponse(result.items, result.lastEvaluatedKey)
     } catch (error) {
         logError(error)
         return GetUsersResponse.internalErrorResponse()
