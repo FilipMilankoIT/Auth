@@ -1,0 +1,162 @@
+Registration:
+  handler: src/auth/lambdas/registrationLambda.handler
+  decription: Lambda function for handling registraion API requests.
+  environment:
+    userTable: !Ref UserTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource:
+        - !GetAtt UserTable.Arn
+  events:
+    - http:
+        path: v1/register
+        method: post
+        cors: true
+
+CustomResource:
+  handler: src/infrastructure/customResourceLambda.handler
+  description: Function used in custom resources.
+  timeout: 900
+  environment:
+    secretKeyTable: !Ref SecretKeyTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:PutItem
+      Resource:
+        - !GetAtt SecretKeyTable.Arn
+
+SecretKeyGenerator:
+  handler: src/auth/lambdas/secreatKeyGeneratorLambda.handler
+  decription: Cron job Lambda function for generating a new and deleting old secret keys.
+  environment:
+    secretKeyTable: !Ref SecretKeyTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:DeleteItem
+      Resource:
+        - !GetAtt SecretKeyTable.Arn
+  events:
+    - schedule: rate(1 hour)
+
+Login:
+  handler: src/auth/lambdas/loginLambda.handler
+  decription: Lambda function for handling login API requests.
+  environment:
+    userTable: !Ref UserTable
+    secretKeyTable: !Ref SecretKeyTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - !GetAtt UserTable.Arn
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Scan
+      Resource:
+        - !GetAtt SecretKeyTable.Arn
+  events:
+    - http:
+        path: v1/login
+        method: post
+        cors: true
+
+Authorizer:
+  handler: src/auth/lambdas/authorizerLambda.handler
+  description: API Gateway authorizer Lambda for control access to server API based on JWT.
+  environment:
+    secretKeyTable: !Ref SecretKeyTable
+    ApiGatewayArn: !Join ["", [ "arn:aws:execute-api", ':', "${self:provider.region}", ":", !Ref "AWS::AccountId", ":", !Ref ApiGatewayRestApi, "/", "*" ]]
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - !GetAtt SecretKeyTable.Arn
+
+UpdateUser:
+  handler: src/user-api/lambdas/updateUserLambda.handler
+  decription: Lambda function for handling PATCH users/{username} API requests.
+  environment:
+    userTable: !Ref UserTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+      Resource:
+        - !GetAtt UserTable.Arn
+  events:
+    - http:
+        path: v1/users/{username}
+        method: patch
+        cors: true
+        authorizer:
+          name: Authorizer
+          resultTtlInSeconds: 3600
+          identitySource: method.request.header.Authorization
+          identityValidationExpression: ${self:provider.tokenRegex}
+          type: token
+        request:
+          parameters:
+            paths:
+              username: true
+
+DeleteUser:
+  handler: src/user-api/lambdas/deleteUserLambda.handler
+  decription: Lambda function for handling DELETE users/{username} API requests.
+  environment:
+    userTable: !Ref UserTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+      Resource:
+        - !GetAtt UserTable.Arn
+  events:
+    - http:
+        path: v1/users/{username}
+        method: delete
+        cors: true
+        authorizer:
+          name: Authorizer
+          resultTtlInSeconds: 3600
+          identitySource: method.request.header.Authorization
+          identityValidationExpression: ${self:provider.tokenRegex}
+          type: token
+        request:
+          parameters:
+            paths:
+              username: true
+
+GetUsers:
+  handler: src/user-api/lambdas/getUsersLambda.handler
+  decription: Lambda function for handling GET users API requests.
+  environment:
+    userTable: !Ref UserTable
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:Scan
+      Resource:
+        - !GetAtt UserTable.Arn
+  events:
+    - http:
+        path: v1/users
+        method: get
+        cors: true
+        authorizer:
+          name: Authorizer
+          resultTtlInSeconds: 3600
+          identitySource: method.request.header.Authorization
+          identityValidationExpression: ${self:provider.tokenRegex}
+          type: token

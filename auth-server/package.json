@@ -1,0 +1,30 @@
+{
+  "name": "auth-server",
+  "version": "1.0.0",
+  "description": "This is a sever for the Auth application.",
+  "main": "index.js",
+  "scripts": {
+    "tests": "mocha 'tests/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.toptal.com/screening/Filip-Milanko.git"
+  },
+  "author": "Filip Milanko",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.884.0",
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "unirest": "^0.6.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "serverless": "^2.35.0",
+    "serverless-iam-roles-per-function": "^3.1.0"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "loginEvent": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "loginEventWithoutUsername": {
+    "body": "{\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "loginEventWithoutPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\"\r\n}"
+  },
+  "loginEventForNotExistingUsername": {
+    "body": "{\r\n    \"username\": \"JohnDoe\",\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "loginEventWithIncorrectPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Pas123*\"\r\n}"
+  },
+  "200Response": {
+    "statusCode": 200,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"token\":\"adddd\"}"
+  },
+  "correctKid": "4ccd3380-6ac6-425b-a967-aab36afebc02",
+  "400ResponseInvalidUsername": {
+    "statusCode": 400,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"InvalidBody\",\"message\":\"Invalid username. Username must be a non empty string.\"}"
+  },
+  "400ResponseInvalidPassword": {
+    "statusCode": 400,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"InvalidBody\",\"message\":\"Invalid password. Password must be a non empty string.\"}"
+  },
+  "400ResponseUsernameDoesNotExist": {
+    "statusCode": 400,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"UsernameNotFound\",\"message\":\"The username JohnDoe does not exist.\"}"
+  },
+  "401ResponseUnauthorized": {
+    "statusCode": 401,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"Unauthorized\",\"message\":\"Username and password do not match.\"}"
+  },
+  "getUserParams": {
+    "TableName": "auth-server-dev-user-table",
+    "Key": {
+      "username": "FilipMilanko"
+    }
+  },
+  "getUserResult": {
+    "Item": {
+      "username": "FilipMilanko",
+      "hashPassword": "$2b$10$Xt6mh.cPrG7TQ69GKlO.2.DTQKF088pa.ONFeqC/y95wbZbzAVwsG"
+    }
+  },
+  "scanKeysParams": {
+    "TableName": "auth-server-dev-secret-key-table"
+  },
+  "scanKeysResult": {
+    "Items": [
+      {
+        "createdTimestamp": 1618125140531,
+        "kid": "f718c6f8-5a64-4923-a6a8-312a8334ecd8",
+        "secretKey": "6c7eaec9-8805-4d66-b814-12bd5ac36a72"
+      },
+      {
+        "createdTimestamp": 1618132040531,
+        "kid": "4ccd3380-6ac6-425b-a967-aab36afebc02",
+        "secretKey": "84a77f44-b030-4d5f-9323-18d7d32ae478"
+      },
+      {
+        "createdTimestamp": 1618128740531,
+        "kid": "402eeb78-e03a-4496-8c2f-f6edc94b2c47",
+        "secretKey": "848aae69-c16f-480a-b894-ce239964c609"
+      }
+    ]
+  }
+}

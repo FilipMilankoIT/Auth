@@ -1,0 +1,122 @@
+{
+  "getUsersEventAsUserManager": {
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiZTJlOTQ0LTI4ODAtNDFiZC04ZTAxLTAxZDQ3NjNkYTMwNiJ9.ewogICJ1c2VybmFtZSI6ICJGaWxpcE1pbGFua29Vc2VyTWFuYWdlciIsCiAgImlhdCI6IDE2MTgxNDUxNzgsCiAgImV4cCI6IDE2MTgxNDg3NzgKfQ.bRpGeEIXpEY-bCCVo04p6J9rfXdtz8bhoua6KLwbfOo"
+    },
+    "body": null
+  },
+  "getUsersEventAsAdmin": {
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiZTJlOTQ0LTI4ODAtNDFiZC04ZTAxLTAxZDQ3NjNkYTMwNiJ9.ewogICJ1c2VybmFtZSI6ICJGaWxpcE1pbGFua29BZG1pbiIsCiAgImlhdCI6IDE2MTgxNDUxNzgsCiAgImV4cCI6IDE2MTgxNDg3NzgKfQ.bRpGeEIXpEY-bCCVo04p6J9rfXdtz8bhoua6KLwbfOo"
+    },
+    "body": null
+  },
+  "getUsersEventAsUser": {
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiZTJlOTQ0LTI4ODAtNDFiZC04ZTAxLTAxZDQ3NjNkYTMwNiJ9.eyJ1c2VybmFtZSI6IkZpbGlwTWlsYW5rbyIsImlhdCI6MTYxODE0NTE3OCwiZXhwIjoxNjE4MTQ4Nzc4fQ.bRpGeEIXpEY-bCCVo04p6J9rfXdtz8bhoua6KLwbfOo"
+    },
+    "body": null
+  },
+  "200Response": {
+    "statusCode": 200,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"users\":[{\"username\":\"OldUser\",\"role\":\"user\"},{\"username\":\"MilankoFilip\",\"role\":\"user\"}]}"
+  },
+  "403Response": {
+    "statusCode": 403,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"NoPermission\",\"message\":\"You don't have permission for this request.\"}"
+  },
+  "getUserParams1": {
+    "TableName": "auth-server-dev-user-table",
+    "Key": {
+      "username": "FilipMilanko"
+    }
+  },
+  "getUserResult1": {
+    "Item": {
+      "username": "FilipMilanko",
+      "password": "Pass123*",
+      "role": "user"
+    }
+  },
+  "getUserParams2": {
+    "TableName": "auth-server-dev-user-table",
+    "Key": {
+      "username": "FilipMilankoUserManager"
+    }
+  },
+  "getUserResult2": {
+    "Item": {
+      "username": "FilipMilankoUserManager",
+      "password": "Pass123*",
+      "role": "user_manager"
+    }
+  },
+  "getUserParams3": {
+    "TableName": "auth-server-dev-user-table",
+    "Key": {
+      "username": "FilipMilankoAdmin"
+    }
+  },
+  "getUserResult3": {
+    "Item": {
+      "username": "FilipMilankoAdmin",
+      "password": "Pass123*",
+      "role": "admin"
+    }
+  },
+  "scanParams1": {
+    "TableName": "auth-server-dev-user-table",
+    "FilterExpression": "username <> :username",
+    "ExpressionAttributeValues": {
+      ":username": "FilipMilanko"
+    },
+    "ExpressionAttributeNames": {
+      "#role": "role"
+    },
+    "ProjectionExpression": "username, #role, firstName, lastName, gender, birthday"
+  },
+  "scanParams2": {
+    "TableName": "auth-server-dev-user-table",
+    "FilterExpression": "username <> :username",
+    "ExpressionAttributeValues": {
+      ":username": "FilipMilankoUserManager"
+    },
+    "ExpressionAttributeNames": {
+      "#role": "role"
+    },
+    "ProjectionExpression": "username, #role, firstName, lastName, gender, birthday"
+  },
+  "scanParams3": {
+    "TableName": "auth-server-dev-user-table",
+    "FilterExpression": "username <> :username",
+    "ExpressionAttributeValues": {
+      ":username": "FilipMilankoAdmin"
+    },
+    "ExpressionAttributeNames": {
+      "#role": "role"
+    },
+    "ProjectionExpression": "username, #role, firstName, lastName, gender, birthday"
+  },
+  "scanResult": {
+    "Items": [
+      {
+        "username": "OldUser",
+        "role": "user"
+      },
+      {
+        "username": "MilankoFilip",
+        "role": "user"
+      }
+    ]
+  }
+}

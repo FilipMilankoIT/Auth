@@ -1,0 +1,7 @@
+node_modules
+mocha.json
+newman
+.serverless
+
+# IntelliJ files
+.idea

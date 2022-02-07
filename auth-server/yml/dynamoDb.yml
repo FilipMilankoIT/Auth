@@ -1,0 +1,24 @@
+Resources:
+  UserTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:provider.stackName}-user-table
+      AttributeDefinitions:
+          - AttributeName: "username"
+            AttributeType: "S"
+      KeySchema:
+        - AttributeName: "username"
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  SecretKeyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:provider.stackName}-secret-key-table
+      AttributeDefinitions:
+        - AttributeName: "kid"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "kid"
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST

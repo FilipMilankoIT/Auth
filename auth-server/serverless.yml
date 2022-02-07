@@ -1,0 +1,35 @@
+service: auth-server
+
+package:
+  exclude:
+    - .idea/**
+    - yml/**
+    - tests/**
+    - package.json
+    - package-lock.json
+    - README.md
+
+plugins:
+  - serverless-iam-roles-per-function
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, 'dev'}
+  stackName: ${self:service}-${self:provider.stage}
+  tags:
+    project: ${self:service}
+
+  tokenRegex: ^Bearer\s[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$
+
+functions:
+  - ${file(yml/functions.yml)}
+
+resources:
+  - ${file(yml/dynamoDb.yml)}
+  - ${file(yml/gatewayResponse.yml)}
+  - ${file(yml/customResources.yml)}

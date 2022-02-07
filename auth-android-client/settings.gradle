@@ -1,0 +1,4 @@
+rootProject.name = "Auth"
+include ':app'
+include ':auth-api'
+include ':auth-core'

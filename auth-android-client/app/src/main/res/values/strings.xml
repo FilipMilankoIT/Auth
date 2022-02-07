@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Auth App</string>
+
+    <!-- Login fragment -->
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
+    <string name="sign_in_label">Sign In</string>
+    <string name="not_registered">Not registered?</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="empty_username">Username must not be blank</string>
+    <string name="empty_password">Password must not be blank</string>
+    <string name="login_success">Welcome!</string>
+    <string name="error_login">Incorrect username or password</string>
+
+    <!-- Register fragment -->
+    <string name="registration_title">Registration</string>
+    <string name="confirm_password_label">Confirm Password</string>
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last Name</string>
+    <string name="birthday_label">Birthday</string>
+    <string name="birthday_hint">DD.MM.YYYY</string>
+    <string name="gender_label">Gender</string>
+    <string name="sign_up_label">Sign Up</string>
+    <string name="invalid_password">Password must be at least eight characters, have at least one uppercase letter, one lowercase letter, one number and one special character</string>
+    <string name="invalid_confirm_password">Password do not match</string>
+    <string name="error_username_already_exists">This username is already registered</string>
+    <string name="register_success">Account created</string>
+    <string-array name="genders_array">
+        <item>Select your gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Error messages -->
+    <string name="error_unknown">Sorry something went wrong</string>
+    <string name="error_no_network">No internet connection</string>
+    <string name="token_expired">Session expired, you need to login again</string>
+
+    <!-- Home fragment -->
+    <string name="home_label">Home</string>
+
+    <!-- Dashboard fragment -->
+    <string name="dashboard_label">Dashboard</string>
+
+    <!-- Profile fragment -->
+    <string name="profile_label">Profile</string>
+    <string name="save_label">Save</string>
+    <string name="sign_out_label">Sign Out</string>
+    <string name="delete_label">Delete</string>
+    <string name="profile_updated_success">Profile successfully updated</string>
+    <string name="delete_user_success">User is deleted</string>
+
+</resources>

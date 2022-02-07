@@ -1,0 +1,51 @@
+{
+  "deleteUserEvent": {
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiZTJlOTQ0LTI4ODAtNDFiZC04ZTAxLTAxZDQ3NjNkYTMwNiJ9.eyJ1c2VybmFtZSI6IkZpbGlwTWlsYW5rbyIsImlhdCI6MTYxODE0NTE3OCwiZXhwIjoxNjE4MTQ4Nzc4fQ.bRpGeEIXpEY-bCCVo04p6J9rfXdtz8bhoua6KLwbfOo"
+    },
+    "body": null,
+    "pathParameters": {
+      "username": "FilipMilanko"
+    }
+  },
+  "deleteUserEventWithNotFoundUsername": {
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiZTJlOTQ0LTI4ODAtNDFiZC04ZTAxLTAxZDQ3NjNkYTMwNiJ9.eyJ1c2VybmFtZSI6IkZpbGlwTWlsYW5rbyIsImlhdCI6MTYxODE0NTE3OCwiZXhwIjoxNjE4MTQ4Nzc4fQ.bRpGeEIXpEY-bCCVo04p6J9rfXdtz8bhoua6KLwbfOo"
+    },
+    "body": null,
+    "pathParameters": {
+      "username": "MilankoFilip"
+    }
+  },
+  "200Response": {
+    "statusCode": 200,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"message\":\"Successfully deleted FilipMilanko user.\"}"
+  },
+  "404Response": {
+    "statusCode": 404,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"UsernameNotFound\",\"message\":\"User MilankoFilip not found.\"}"
+  },
+  "getUserParams": {
+    "TableName": "auth-server-dev-user-table",
+    "Key": {
+      "username": "FilipMilanko"
+    }
+  },
+  "getUserResult": {
+    "Item": {
+      "username": "FilipMilanko",
+      "password": "Pass123*",
+      "role": "admin"
+    }
+  }
+}

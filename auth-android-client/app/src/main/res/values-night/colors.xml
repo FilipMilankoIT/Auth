@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Element specific colors -->
+    <color name="page_background">@color/gray900</color>
+    <color name="app_bar_background">@color/gray900</color>
+    <color name="bottom_navigation_background">@color/black</color>
+    <color name="bottom_navigation_text_default">@color/gray400</color>
+    <color name="bottom_navigation_text_selected">@color/purple_200</color>
+    <color name="text">@color/white</color>
+    <color name="hint">@color/white_alpha25</color>
+    <color name="form_field_background">@color/white</color>
+    <color name="form_field_icon">@color/white</color>
+    <color name="primary_button_background">@color/purple_200</color>
+    <color name="secondary_button_background">@color/red500</color>
+</resources>

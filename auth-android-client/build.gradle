@@ -1,0 +1,44 @@
+buildscript {
+
+    ext {
+        compileSdk = 31
+        minSdk = 26
+        targetSdk = 31
+
+        androidXCore = '1.7.0'
+
+        kotlin_version = "1.5.3"
+
+        hilt_version = '2.38.1'
+
+        junit = '4.13.2'
+        junitAndroidExt = '1.1.3'
+        junitAndroidEspresso = '3.4.0'
+
+        archLifecycleVersion = '2.4.0'
+
+        gson = '2.8.9'
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

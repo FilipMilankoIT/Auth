@@ -1,0 +1,46 @@
+{
+  "registerEvent": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithEmptyStringUsername": {
+    "body": "{\r\n    \"username\": \"\",\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithNumberUsername": {
+    "body": "{\r\n    \"username\": 123,\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithNullUsername": {
+    "body": "{\r\n    \"username\": null,\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithoutUsername": {
+    "body": "{\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithEmptyStringPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"\"\r\n}"
+  },
+  "registerEventWithNumberPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": 12345678\r\n}"
+  },
+  "registerEventWithNullPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": null\r\n}"
+  },
+  "registerEventWithoutPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\"\r\n}"
+  },
+  "registerEventWithShortPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Pass12*\"\r\n}"
+  },
+  "registerEventWithPasswordWithoutUppercaseLetter": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"pass123*\"\r\n}"
+  },
+  "registerEventWithPasswordWithoutLowercaseLetter": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"PASS123*\"\r\n}"
+  },
+  "registerEventWithPasswordWithoutNumbers": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Password*\"\r\n}"
+  },
+  "registerEventWithPasswordWithoutSpecialCharacter": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Pass1234\"\r\n}"
+  },
+  "errorInvalidUsername": "Invalid username. Username must be a non empty string.",
+  "errorInvalidPassword": "Invalid password. Password must be at least eight characters, have at least one uppercase letter, one lowercase letter, one number and one special character."
+}

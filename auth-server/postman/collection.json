@@ -1,0 +1,1713 @@
+{
+	"info": {
+		"_postman_id": "731bede7-7470-432c-894f-a6ec642300e1",
+		"name": "Auth server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register",
+					"item": [
+						{
+							"name": "Register with 201 response",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 201 response and optional fields",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123*\",\r\n    \"firstName\": \"Filip\",\r\n    \"lastName\": \"Milanko\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": 722300400000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 409 response for already registered username",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: 'FilipMilanko',\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('body', JSON.stringify(body))\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{body}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for invalid body format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",,\r\n    \"password\": \"Pass123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for no username",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"Pass123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for no password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for invalid first name",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123!\",\r\n    \"firstName\": 123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for invalid last name",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123!\",\r\n    \"lastName\": 123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for invalid gender",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123!\",\r\n    \"gender\": \"lamp\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register with 400 response for invalid birthday",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123!\",\r\n    \"birthday\": -1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login with 200 response",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: 'FilipMilanko',\r",
+											"    password: 'Pass123*',\r",
+											"    \"firstName\": \"Filip\",\r",
+											"    \"lastName\": \"Milanko\",\r",
+											"    \"gender\": \"male\",\r",
+											"    \"birthday\": 722300400000\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('body', JSON.stringify(body))\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const body = pm.response.json()\r",
+											"pm.environment.set('token', body.token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{body}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with 400 response for username not found Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",\r\n    \"password\": \"Pass123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with 400 response for invalid body format",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\",,\r\n    \"password\": \"Pass123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with 400 response for no username",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"Pass123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with 400 response for no password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$guid}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with 401 response for incorrect password",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: 'FilipMilanko',\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"Pas123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User API",
+			"item": [
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Update user password with 200 response",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"Password123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user role with 200 response",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": \"user_manager\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user fist name with 200 response",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Filip\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user last name with 200 respons",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lastName\": \"Milanko\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user gender with 200 respons",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gender\": \"male\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user birthday with 200 respons",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"birthday\": 722300400000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response for invalid password",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"Password123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response for invalid role",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": \"super_admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response for invalid first name",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": 123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response for invalid last name",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lastName\": 123\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response for invalid gender",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gender\": \"lamp\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response for invalid birthday",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"birthday\": -1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 400 response no update fields",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update user with 404 response for user not found",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"Password123*\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{$guid}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{$guid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete user with 200 response",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const { v4: uuidv4 } = require('uuid')\r",
+											"\r",
+											"const registerUrl = pm.environment.get('host') + '/register'\r",
+											"\r",
+											"const body = {\r",
+											"    username: uuidv4(),\r",
+											"    password: 'Pass123*'\r",
+											"}\r",
+											"\r",
+											"pm.variables.set('username', body.username)\r",
+											"\r",
+											"const registerUserRequest = {\r",
+											"    url: registerUrl,\r",
+											"    method: 'POST',\r",
+											"    header: {\r",
+											"        'Content-Type': 'application/json'\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(body)\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.sendRequest(registerUserRequest, (error, result) => {\r",
+											"    if (error) {\r",
+											"        console.log(error)\r",
+											"    } else {\r",
+											"        console.log(result)\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{username}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{username}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user with 404 response for not found user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users/{{$guid}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users",
+										"{{$guid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get all users",
+					"item": [
+						{
+							"name": "Get all user with 200 response",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

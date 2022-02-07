@@ -1,0 +1,72 @@
+{
+  "registerEvent": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\",\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithoutUsername": {
+    "body": "{\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "registerEventWithoutPassword": {
+    "body": "{\r\n    \"username\": \"FilipMilanko\"\r\n}"
+  },
+  "registerEventWithExistingUsername": {
+    "body": "{\r\n    \"username\": \"OldUser\",\r\n    \"password\": \"Pass123*\"\r\n}"
+  },
+  "201Response": {
+    "statusCode": 201,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"message\":\"User was successfully registered.\"}"
+  },
+  "400ResponseInvalidUsername": {
+    "statusCode": 400,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"InvalidBody\",\"message\":\"Invalid username. Username must be a non empty string.\"}"
+  },
+  "400ResponseInvalidPassword": {
+    "statusCode": 400,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"InvalidBody\",\"message\":\"Invalid password. Password must be at least eight characters, have at least one uppercase letter, one lowercase letter, one number and one special character.\"}"
+  },
+  "409ResponseAlreadyRegistered": {
+    "statusCode": 409,
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    },
+    "body": "{\"code\":\"UsernameAlreadyExists\",\"message\":\"This username is already registered.\"}"
+  },
+  "getUserParams": {
+    "TableName": "auth-server-dev-user-table",
+    "Key": {
+      "username": "OldUser"
+    }
+  },
+  "getUserResult": {
+    "Item": {
+      "username": "OldUser",
+      "password": "Pass123*",
+      "role": "user"
+    }
+  },
+  "putUserParams": {
+    "TableName": "auth-server-dev-user-table",
+    "Item": {
+      "username": "FilipMilanko",
+      "hashPassword": "$2b$10$Xt6mh.cPrG7TQ69GKlO.2.DTQKF088pa.ONFeqC/y95wbZbzAVwsG",
+      "role": "user"
+    },
+    "ConditionExpression": "attribute_not_exists(username)"
+  }
+}

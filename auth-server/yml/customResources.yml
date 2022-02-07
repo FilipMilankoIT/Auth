@@ -1,0 +1,6 @@
+Resources:
+  GenerateJwtKey:
+    Type: Custom::LoadLambda
+    Properties:
+      ServiceToken: !GetAtt CustomResourceLambdaFunction.Arn
+      Resource: GenerateJwtKey
