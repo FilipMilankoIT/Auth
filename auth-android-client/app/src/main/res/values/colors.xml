@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="gray200">#F0F0F0</color>
+    <color name="gray300">#DCDCDC</color>
     <color name="gray400">#C0C0C0</color>
     <color name="gray800">#464646</color>
     <color name="gray900">#181818</color>
@@ -24,6 +25,8 @@
     <color name="hint">@color/gray400</color>
     <color name="form_field_background">@color/purple_700</color>
     <color name="form_field_icon">@color/gray800</color>
+    <color name="show_icon_default">@color/gray300</color>
+    <color name="show_icon_selected">@color/gray800</color>
     <color name="primary_button_background">@color/purple_500</color>
     <color name="secondary_button_background">@color/red500</color>
 </resources>

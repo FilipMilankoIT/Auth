@@ -16,6 +16,12 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+    private val _isPasswordShown = MutableLiveData(false)
+    val isPasswordShown: LiveData<Boolean> = _isPasswordShown
+
+    private val _isConfirmPasswordShown = MutableLiveData(false)
+    val isConfirmPasswordShown: LiveData<Boolean> = _isConfirmPasswordShown
+
     private val _gender = MutableLiveData<Gender?>(null)
     val gender: LiveData<Gender?> = _gender
 
@@ -39,6 +45,14 @@ class RegisterViewModel @Inject constructor(private val repository: Repository) 
 
     private val _waiting = SingleLiveEvent<Boolean>()
     val waiting: LiveData<Boolean> = _waiting
+
+    fun togglePasswordVisibility() {
+        _isPasswordShown.value = _isPasswordShown.value != true
+    }
+
+    fun toggleConfirmPasswordVisibility() {
+        _isConfirmPasswordShown.value = _isConfirmPasswordShown.value != true
+    }
 
     fun setGender(gender: Gender) {
         _gender.value = gender

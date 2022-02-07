@@ -1,6 +1,8 @@
 package com.example.auth.ui.activities.auth.fragments.register
 
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import com.example.auth.R
 import com.example.auth.databinding.FragmentRegisterBinding
 import com.example.auth.ui.adapters.MySpinnerAdapter
 import com.example.auth.ui.utils.DatePicker
+import com.example.auth.ui.utils.StyleUtils.setBackgroundTint
 import com.example.auth.utils.TimeUtils.toFormattedDate
 import com.example.core.model.Gender
 import com.google.android.material.snackbar.Snackbar
@@ -32,6 +35,42 @@ class RegisterFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.passwordShowIcon.setOnClickListener {
+            viewModel.togglePasswordVisibility()
+        }
+
+        viewModel.isPasswordShown.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.password.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+                binding.passwordShowIcon.setBackgroundTint(requireContext(),
+                    R.color.show_icon_selected)
+            } else {
+                binding.password.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
+                binding.passwordShowIcon.setBackgroundTint(requireContext(),
+                    R.color.show_icon_default)
+            }
+        }
+
+        binding.confirmPasswordShowIcon.setOnClickListener {
+            viewModel.toggleConfirmPasswordVisibility()
+        }
+
+        viewModel.isConfirmPasswordShown.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.confirmPassword.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+                binding.confirmPasswordShowIcon.setBackgroundTint(requireContext(),
+                    R.color.show_icon_selected)
+            } else {
+                binding.confirmPassword.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
+                binding.confirmPasswordShowIcon.setBackgroundTint(requireContext(),
+                    R.color.show_icon_default)
+            }
+        }
 
         binding.registerButton.setOnClickListener {
             val username = binding.username.text.toString()

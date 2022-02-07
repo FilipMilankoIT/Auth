@@ -2,6 +2,8 @@ package com.example.auth.ui.activities.auth.fragments.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.auth.R
 import com.example.auth.databinding.FragmentLoginBinding
 import com.example.auth.ui.activities.main.MainActivity
+import com.example.auth.ui.utils.StyleUtils.setBackgroundTint
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +32,24 @@ class LoginFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.passwordShowIcon.setOnClickListener {
+            viewModel.togglePasswordVisibility()
+        }
+
+        viewModel.isPasswordShown.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.password.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+                binding.passwordShowIcon.setBackgroundTint(requireContext(),
+                    R.color.show_icon_selected)
+            } else {
+                binding.password.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
+                binding.passwordShowIcon.setBackgroundTint(requireContext(),
+                    R.color.show_icon_default)
+            }
+        }
 
         binding.loginButton.setOnClickListener {
             val username = binding.username.text.toString()

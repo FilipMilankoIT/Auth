@@ -10,6 +10,8 @@
     <color name="hint">@color/white_alpha25</color>
     <color name="form_field_background">@color/white</color>
     <color name="form_field_icon">@color/white</color>
+    <color name="show_icon_default">@color/white_alpha25</color>
+    <color name="show_icon_selected">@color/white</color>
     <color name="primary_button_background">@color/purple_200</color>
     <color name="secondary_button_background">@color/red500</color>
 </resources>

@@ -14,6 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+    private val _isPasswordShown = MutableLiveData(false)
+    val isPasswordShown: LiveData<Boolean> = _isPasswordShown
+
     private val _usernameError = MutableLiveData<Int?>(null)
     val usernameError: LiveData<Int?> = _usernameError
 
@@ -31,6 +34,10 @@ class LoginViewModel @Inject constructor(private val repository: Repository) : V
 
     init {
         _isUserLoggedIn.value = !repository.getToken().isNullOrBlank()
+    }
+
+    fun togglePasswordVisibility() {
+        _isPasswordShown.value = _isPasswordShown.value != true
     }
 
     /**
