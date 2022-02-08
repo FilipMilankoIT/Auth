@@ -1,7 +1,7 @@
 'use strict'
 
 const AuthorizedRequest = require('./AuthorizedRequest')
-const {isNonEmptyString, isString, isPositiveInteger} = require('../../utils/utilFunctions')
+const {isNonEmptyString, isString, isInteger} = require('../../utils/utilFunctions')
 const Role = require("../../model/Role").Role
 const Gender = require("../../model/Gender")
 
@@ -59,7 +59,7 @@ class UpdateUserRequest extends AuthorizedRequest {
             throw new Error('Invalid gender. Allowed gender: male, female and other.')
         }
 
-        if (this.birthday && !isPositiveInteger(this.birthday)) {
+        if (this.birthday && !isInteger(this.birthday)) {
             throw new Error('Invalid birthday. Birthday need to be a timestamp in milliseconds.')
         }
     }

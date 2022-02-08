@@ -2,7 +2,7 @@
 
 const Request = require('./Request')
 const Gender = require('../../model/Gender')
-const {isNonEmptyString, isString, isPositiveInteger} = require('../../utils/utilFunctions')
+const {isNonEmptyString, isString, isInteger} = require('../../utils/utilFunctions')
 
 /**
  * RegistrationRequest class used for creating and verifying register API requests objects.
@@ -46,7 +46,7 @@ class RegistrationRequest extends Request {
             throw new Error('Invalid gender. Allowed gender: male, female and other.')
         }
 
-        if (this.birthday && !isPositiveInteger(this.birthday)) {
+        if (this.birthday && !isInteger(this.birthday)) {
             throw new Error('Invalid birthday. Birthday need to be a timestamp in milliseconds.')
         }
     }
