@@ -96,7 +96,7 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
                 is RepositoryResult.NetworkError -> _error.value = R.string.error_no_network
                 is RepositoryResult.UnknownError -> _error.value = R.string.error_unknown
             }
-            _waiting.value = _userDeleted.value
+            _waiting.value = _userDeleted.value == true
         }
     }
 }
